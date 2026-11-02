@@ -1,0 +1,17 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/qyprit
+qyprit.so
+qyprit.dylib
+qyprit.dll
+libqyprit.a
+qyprit.a
+qyprit.lib
+qyprit-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

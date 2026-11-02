@@ -1,0 +1,13 @@
+{
+	"description": "A minimal D application that allows you to encrypt, sign and create shared secrets for encrypted communication.",
+	"dependencies": {
+		"cli-d": "~>0.1.1",
+		"cryptod": "~>1.0.0"
+	},
+	"authors": [
+		"ranon-rat"
+	],
+	"copyright": "Copyright © 2026, ranon-rat",
+	"license": "MIT",
+	"name": "qyprit"
+}
