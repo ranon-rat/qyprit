@@ -1,5 +1,11 @@
 # Qyprit
 
+<p align="center">
+
+![logo](others/image.png)
+
+</p>
+
 A simple command line application similar to PGP but with encription algorithms that are quantum safe.
 
 Here is the usage
