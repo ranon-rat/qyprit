@@ -454,9 +454,8 @@ void signMessage(CryptographicIdentity* identity)
 
 	auto bMessage = (cast(ubyte[]) message).dup;
 	auto hash = sha256Of(bMessage);
-	// contents is  1894A19C85BA153ACBF743AC4E43FC004C891604B26F8C69E1E83EA2AFC7C48F
-	writeln(toHexString(hash));
 	auto signed = identity.signatureKey.signMessage(hash);
+	writeln("Created using qyprit@", versionProject);
 	printFormatedSection("SIGNATURE", prepareBytes(signed));
 	printFormatedSection("MESSAGE", message);
 
@@ -509,9 +508,7 @@ void verifyMessage(CryptographicIdentity* friend)
 		(cast(ubyte[]) message).dup;
 
 	auto bSignature = Base64.decode(signature);
-	writeln(message);
 	auto hash = sha256Of(bMessage);
-	writeln(toHexString(hash));
 	if (friend.signatureKey.verifyMessage(hash, bSignature))
 	{
 		writeln("message seems valid");
@@ -532,8 +529,8 @@ void encryptMessage(CryptographicIdentity* identity, CryptographicIdentity* frie
 	ubyte[16] tag;
 	auto encriptedMessage = AESgcmEncrypt(&sharedSecret, cast(ubyte[]) message, null, iv, tag);
 	auto hash = sha256Of(encriptedMessage);
-	writeln(toHexString(hash));
 	auto signed = identity.signatureKey.signMessage(hash);
+	writeln("Created using qyprit@", versionProject);
 	printFormatedSection("SIGNATURE", prepareBytes(signed));
 	printFormatedSection("CIPHER TEXT", prepareBytes(cipherText));
 	printFormatedSection("TAG", prepareBytes(tag));
