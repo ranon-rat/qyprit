@@ -267,7 +267,6 @@ void listIdentities()
 		foreach (entry; dirEntries(qypritIdentitiesDir.dup, SpanMode.shallow))
 		{
 			SysTime sysTime = entry.name.timeLastModified();
-
 			writeln("\t- ", sysTime.year, " ", sysTime.month, " ", sysTime.day, " \t\t", baseName(
 					entry.name));
 		}
@@ -376,9 +375,7 @@ void listFriends()
 	{
 		foreach (entry; dirEntries(qypritFriendIdentitiesDir, SpanMode.shallow))
 		{
-			writeln(entry.name);
 			SysTime sysTime = entry.name.timeLastModified();
-
 			writeln("\t- ", sysTime.year, " ", sysTime.month, " ", sysTime.day, " \t\t", baseName(
 					entry.name));
 		}
