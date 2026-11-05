@@ -35,7 +35,7 @@ IDENTITIES (your private keys):
 FRIENDS (other people's public keys):
   --new-friend <name>        Add or update a friend by pasting their pubkeys
   --remove-friend <name>     Remove a friend
-  --list-friend              List your friends
+  --list-friends              List your friends
   --friend <name>            Select a friend to encrypt / verify
 
 ACTIONS:

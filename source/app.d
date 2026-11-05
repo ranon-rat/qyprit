@@ -10,6 +10,7 @@ import std.utf;
 import std.digest.sha;
 import std.base64;
 import std.string;
+import std.datetime;
 
 const string versionProject = "1.0.0";
 string baseQypritDir = "";
@@ -53,7 +54,7 @@ private struct CmdArguments
 	@Description("removes the friend")
 	string removeFriend;
 
-	@Parameter("list-friend",)
+	@Parameter("list-friends",)
 	@Description("List your friends")
 	bool listFriend;
 
@@ -161,7 +162,7 @@ void init()
 
 	baseQypritDir = expandTilde("~/.qyprit");
 	qypritIdentitiesDir = absolutePath("identities", baseQypritDir);
-	qypritFriendIdentitiesDir = absolutePath("friend", baseQypritDir);
+	qypritFriendIdentitiesDir = absolutePath("friends", baseQypritDir);
 
 }
 
@@ -182,9 +183,12 @@ void setup()
 	}
 	try
 	{
-		mkdir(baseQypritDir);
-		mkdir(qypritIdentitiesDir);
-		mkdir(qypritFriendIdentitiesDir);
+		if (!exists(baseQypritDir))
+			mkdir(baseQypritDir);
+		if (!exists(qypritIdentitiesDir))
+			mkdir(qypritIdentitiesDir);
+		if (!exists(qypritFriendIdentitiesDir))
+			mkdir(qypritFriendIdentitiesDir);
 		writeln("Done :)");
 
 	}
@@ -262,7 +266,10 @@ void listIdentities()
 	{
 		foreach (entry; dirEntries(qypritIdentitiesDir.dup, SpanMode.shallow))
 		{
-			writeln("\t-", baseName(entry.name));
+			SysTime sysTime = entry.name.timeLastModified();
+
+			writeln("\t- ", sysTime.year, " ", sysTime.month, " ", sysTime.day, " \t\t", baseName(
+					entry.name));
 		}
 
 	}
@@ -369,7 +376,11 @@ void listFriends()
 	{
 		foreach (entry; dirEntries(qypritFriendIdentitiesDir, SpanMode.shallow))
 		{
-			writeln("\t-", baseName(entry.name));
+			writeln(entry.name);
+			SysTime sysTime = entry.name.timeLastModified();
+
+			writeln("\t- ", sysTime.year, " ", sysTime.month, " ", sysTime.day, " \t\t", baseName(
+					entry.name));
 		}
 
 	}
@@ -641,7 +652,7 @@ IDENTITIES (your private keys):
 FRIENDS (other people's public keys):
   --new-friend <name>        Add or update a friend by pasting their pubkeys
   --remove-friend <name>     Remove a friend
-  --list-friend              List your friends
+  --list-friends              List your friends
   --friend <name>            Select a friend to encrypt / verify
 
 ACTIONS:
